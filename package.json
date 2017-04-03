@@ -179,8 +179,12 @@
   },
   "dependencies": {
     "electron-debug": "^1.1.0",
+    "electron-storage": "^1.0.7",
     "extract-text-webpack-plugin": "^2.0.0",
     "font-awesome": "^4.7.0",
+    "fs-jetpack": "^0.13.3",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-hot-loader": "3.0.0-beta.6",
@@ -189,8 +193,12 @@
     "react-router-redux": "^4.0.7",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
+    "request": "^2.81.0",
+    "semantic-ui-css": "^2.2.10",
+    "semantic-ui-react": "^0.67.2",
     "source-map-support": "^0.4.10",
-    "unsplash-js": "^4.5.3"
+    "unsplash-js": "^4.5.3",
+    "wallpaper": "^2.4.0"
   },
   "devEngines": {
     "node": ">=6.x",
