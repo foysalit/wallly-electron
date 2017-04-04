@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { Card, Image, Icon, Button } from 'semantic-ui-react';
 
-import Photos from '../utils/photos';
+import Photos from '../../utils/photos';
 
 export default class SinglePhoto extends Component {
   constructor(props) {

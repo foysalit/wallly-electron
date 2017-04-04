@@ -1,24 +1,24 @@
 import Unsplash, { toJson } from "unsplash-js";
 import storage from 'electron-storage';
-import electron from 'electron';
+import electron, { shell } from 'electron';
 import request from 'request';
 import wallpaper from 'wallpaper';
-import { createWriteStream } from 'fs-jetpack';
+import { createWriteStream, remove } from 'fs-jetpack';
 import { map, extend } from 'lodash';
 
 export default class Photos {
-  constructor() {
-    this.currentPage = 0;
-    this.perPage = 20;
-    this.localDataFile = 'photos';
+  currentPage = 0;
+  perPage = 20;
+  localDataFile = 'photos';
+  loaded = [];
 
+  constructor() {
     this.localDir = (electron.app || electron.remote.app).getPath('userData');
 
     if (this.api)
       return;
 
     this.api = new Unsplash({
-
     });
   };
 
@@ -43,15 +43,12 @@ export default class Photos {
   };
 
   getPhotos () {
-    return this.getLocal()
-      .then(fromLocal => {
-        if (fromLocal)
-          return fromLocal;
-
-        console.log('getting from api');
-        return this.api.photos.listPhotos(this.currentPage, this.perPage, 'latest')
-          .then(toJson)
-          .then((fromApi) => this.setLocal(fromApi));
+    return this.api.photos.listPhotos(this.currentPage, this.perPage, 'latest')
+      .then(toJson)
+      .then((fromApi) => {
+        this.currentPage = this.currentPage+this.perPage;
+        this.loaded = this.loaded.concat(fromApi);
+        return this.loaded;
       });
   };
 
@@ -76,12 +73,21 @@ export default class Photos {
   updatePhoto (photo) {
     return this.getLocal()
       .then(photos => {
-        return map(photos, (e) => {
+        let found = false;
+        const updated = map(photos, (e) => {
           if (e.id !== photo.id)
             return e;
 
+          found = true;
           return extend({}, photo, e);
         });
+
+        if (!found) {
+          photos.push(photo);
+          return photos;
+        }
+
+        return updated;
       })
       .then((updated) => this.setLocal(updated))
       .then(() => photo);
@@ -93,5 +99,20 @@ export default class Photos {
       .catch(err => {
         console.error('error saving photo', err);
       });
+  };
+
+  cleanLocal () {
+    return this.getLocal().then((photos) => {
+      photos.forEach(p => {
+        console.log('removing', p);
+        remove(this.createPhotoName(p));
+      });
+
+      return photos;
+    }).then(() => this.setLocal([]));
+  };
+
+  showLocalFolder () {
+    return shell.showItemInFolder(`${this.localDir}/Preferences`);
   }
 }

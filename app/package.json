@@ -1,13 +1,13 @@
 {
-  "name": "electron-react-boilerplate",
-  "productName": "electron-react-boilerplate",
+  "name": "wallly",
+  "productName": "wallly",
   "version": "1.0.0",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
+  "description": "Browse, save and use photos from unsplash as your desktop wallpaper.",
   "main": "./main.js",
   "author": {
-    "name": "C. T. Lin",
-    "email": "chentsulin@gmail.com",
-    "url": "https://github.com/chentsulin"
+    "name": "Foysal Ahamed",
+    "email": "foysal@bdgeeks.com",
+    "url": "https://github.com/foysalit"
   },
   "license": "MIT",
   "dependencies": {

@@ -2,22 +2,18 @@
 import React, { Component } from 'react';
 import type { Children } from 'react';
 
+import Nav from '../components/Nav';
 
 export default class App extends Component {
   props: {
     children: Children
   };
 
-  state = { visible: false };
-  
-  toggleVisibility () {
-    this.setState({ visible: !this.state.visible })
-  };
-
   render() {
     return (
       <div>
-          {this.props.children}
+        <Nav />
+        {this.props.children}
       </div>
     );
   }
