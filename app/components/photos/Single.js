@@ -45,8 +45,14 @@ export default class SinglePhoto extends Component {
           </Card.Header>
           <Card.Meta>
             <span className='date'>
-              { moment(photo.created_at).fromNow() }
+              Posted On: { moment(photo.created_at).fromNow() }
             </span>
+            <br />
+            {photo.saved_at && (
+              <span className='date'>
+                Saved On: { moment(photo.saved_at).fromNow() }
+              </span>
+            )}
           </Card.Meta>
           <Card.Description>
             { photo.user.bio }

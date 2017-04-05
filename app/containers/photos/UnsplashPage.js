@@ -5,13 +5,14 @@ import { Grid } from 'semantic-ui-react';
 import List from '../../components/photos/List';
 import Photos from '../../utils/photos';
 
+const api = new Photos();
+
 export default class UnsplashPage extends Component {
-  api = new Photos();
   state = {photos: [], isLoading: true};
 
   loadPhotos () {
     this.setState({isLoading: true});
-    this.api.getPhotos().then(photos => {
+    api.getPhotos().then(photos => {
       this.setState({photos, isLoading: false});
     });
   };

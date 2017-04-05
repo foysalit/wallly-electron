@@ -64,7 +64,8 @@ export default class Photos {
       request(photo.links.download)
         .pipe(createWriteStream(this.createPhotoName(photo)))
         .on('close', () => {
-          this.updatePhoto(extend({saved: true}, photo)).then((newPhoto) => resolve(newPhoto));
+          this.updatePhoto(extend({saved: true, saved_at: new Date()}, photo))
+            .then((newPhoto) => resolve(newPhoto));
         })
         .on('error', reject);
     });
