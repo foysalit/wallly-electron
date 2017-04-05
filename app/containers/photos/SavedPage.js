@@ -29,6 +29,7 @@ export default class SavedPage extends Component {
         {(photos.length > 0) ? (
           <Grid columns={2}>
             <Grid.Column width={10}>
+              <h1>Saved  Page</h1>
               <List 
                 photos={photos}
                 loadMore={this.loadPhotos.bind(this)}
