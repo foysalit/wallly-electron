@@ -198,7 +198,7 @@
     "semantic-ui-react": "^0.67.2",
     "source-map-support": "^0.4.10",
     "unsplash-js": "^4.5.3",
-    "wallpaper": "^2.4.0"
+    "wallpaper": "https://github.com/fa7ad/wallpaper/tarball/patch-1"
   },
   "devEngines": {
     "node": ">=6.x",

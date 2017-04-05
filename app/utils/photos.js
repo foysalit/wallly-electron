@@ -96,6 +96,7 @@ export default class Photos {
   setWallpaper (photo) {
     return this.savePhotoFile(photo)
       .then(() => wallpaper.set(this.createPhotoName(photo)))
+      .then(() => this.updatePhoto(extend({wallpaper: true}, photo)))
       .catch(err => {
         console.error('error saving photo', err);
       });
@@ -104,7 +105,6 @@ export default class Photos {
   cleanLocal () {
     return this.getLocal().then((photos) => {
       photos.forEach(p => {
-        console.log('removing', p);
         remove(this.createPhotoName(p));
       });
 
@@ -114,5 +114,22 @@ export default class Photos {
 
   showLocalFolder () {
     return shell.showItemInFolder(`${this.localDir}/Preferences`);
-  }
+  };
+
+  removePhoto (photo) {
+    return this.getLocal().then((photos) => {
+      const newPhotos = photos.filter(p => {
+        if (p.id !== photo.id)
+          return true;
+
+        if (p.wallpaper) 
+          return true;
+
+        remove(this.createPhotoName(p));
+        return false;
+      });
+
+      return this.setLocal(newPhotos);
+    });
+  };
 }
